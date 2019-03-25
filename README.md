@@ -1,4 +1,4 @@
-# TicketingEngine
+# TicketDispenser
 Short description and motivation.
 
 ## Usage

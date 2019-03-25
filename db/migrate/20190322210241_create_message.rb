@@ -1,6 +1,6 @@
 class CreateMessage < ActiveRecord::Migration[5.2]
   def change
-    create_table :ticketing_engine_messages do |t|
+    create_table :ticket_dispenser_messages do |t|
       t.integer :kind, default: 0, limit: 1
       t.integer :sender_id
       t.references :ticket
