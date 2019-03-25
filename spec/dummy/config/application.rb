@@ -4,6 +4,7 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups)
 require "ticket_dispenser"
+require "active_model_serializers"
 
 module Dummy
   class Application < Rails::Application

@@ -3,6 +3,7 @@ module TicketDispenser
     attributes :id, :status, :sender, :owner, :course, :messages
 
     def sender
+      return nil if self.object.messages.empty?
       message = self.object.messages.find do |message|
         !message.sender.admin?
       end
@@ -12,6 +13,7 @@ module TicketDispenser
     
     def owner
       {
+        id: self.object.owner.id,
         username: self.object.owner.username,
         real_name: self.object.owner.real_name
       }
@@ -19,6 +21,7 @@ module TicketDispenser
 
     def course
       {
+        id: self.object.course.id,
         title: self.object.course.title,
         slug: self.object.course.slug
       }
