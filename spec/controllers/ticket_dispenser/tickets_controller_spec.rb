@@ -5,18 +5,20 @@ require 'rails_helper'
 describe TicketDispenser::TicketsController, type: :request do
   let(:admin) { create(:user, :admin) }
   let(:course) { create(:course) }
-  
+
   describe '#index' do
+    let(:user) { create(:user, username: 'MyUsername') }
+
     it 'should return an empty json response of all tickets' do
-      get "/tickets"
+      get '/tickets'
       expected = [].to_json
       expect(response.body).to eq(expected)
     end
 
     it 'should return tickets if there are any' do
       TicketDispenser::Ticket.create(owner: admin, course: course, status: 0)
-      
-      get "/tickets"
+
+      get '/tickets'
       tickets = JSON.parse(response.body)
       expect(tickets.length).to equal(1)
 
@@ -27,12 +29,11 @@ describe TicketDispenser::TicketsController, type: :request do
       expect(ticket['messages']).to eq([])
     end
 
-    let(:user) { create(:user, username: 'MyUsername') }
     it 'should return messages embedded in tickets if there are any' do
       ticket = TicketDispenser::Ticket.create(owner: admin, course: course, status: 0)
       TicketDispenser::Message.create(ticket: ticket, sender: user, content: 'Hello')
 
-      get "/tickets"
+      get '/tickets'
       tickets = JSON.parse(response.body)
       expect(tickets.length).to equal(1)
 

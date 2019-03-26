@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  mount TicketDispenser::Engine => "/tickets"
+  mount TicketDispenser::Engine => '/tickets'
 end

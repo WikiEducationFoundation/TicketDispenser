@@ -13,7 +13,9 @@ RSpec.describe TicketDispenser::Message, type: :model do
 
     it { expect(message).to validate_numericality_of(:kind) }
     it {
-      values = TicketDispenser::Message::Kinds.constants.map { |c| TicketDispenser::Message::Kinds.const_get c }
+      values = TicketDispenser::Message::Kinds.constants.map do |constant|
+        TicketDispenser::Message::Kinds.const_get constant
+      end
       higher_val = values.max + 1
       expect(message).not_to allow_value(higher_val).for(:kind)
     }

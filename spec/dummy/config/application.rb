@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
-require "ticket_dispenser"
-require "active_model_serializers"
+require 'ticket_dispenser'
+require 'active_model_serializers'
 
 module Dummy
   class Application < Rails::Application
@@ -17,4 +19,3 @@ module Dummy
     # the framework and any gems in your application.
   end
 end
-

@@ -1,34 +1,37 @@
+# frozen_string_literal: true
+
 module TicketDispenser
   class TicketSerializer < ActiveModel::Serializer
     attributes :id, :status, :sender, :owner, :course, :messages
 
     def sender
-      return nil if self.object.messages.empty?
-      message = self.object.messages.find do |message|
+      return nil if object.messages.empty?
+
+      admin_message = object.messages.find do |message|
         !message.sender.admin?
       end
-      
-      message.sender.username
+
+      admin_message.sender.username
     end
-    
+
     def owner
       {
-        id: self.object.owner.id,
-        username: self.object.owner.username,
-        real_name: self.object.owner.real_name
+        id: object.owner.id,
+        username: object.owner.username,
+        real_name: object.owner.real_name
       }
     end
 
     def course
       {
-        id: self.object.course.id,
-        title: self.object.course.title,
-        slug: self.object.course.slug
+        id: object.course.id,
+        title: object.course.title,
+        slug: object.course.slug
       }
     end
-    
+
     def messages
-      self.object.messages.map do |message|
+      object.messages.map do |message|
         {
           content: message.content,
           id: message.id,
