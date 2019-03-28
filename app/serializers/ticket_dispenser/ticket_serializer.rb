@@ -8,10 +8,11 @@ module TicketDispenser
       return nil if object.messages.empty?
 
       admin_message = object.messages.find do |message|
-        !message.sender.admin?
+        !message.sender&.admin?
       end
 
-      admin_message.sender.username
+      return nil if !admin_message
+      admin_message.sender&.username
     end
 
     def owner
@@ -24,9 +25,9 @@ module TicketDispenser
 
     def course
       {
-        id: object.course.id,
-        title: object.course.title,
-        slug: object.course.slug
+        id: object.course&.id,
+        title: object.course&.title,
+        slug: object.course&.slug
       }
     end
 
@@ -37,7 +38,7 @@ module TicketDispenser
           id: message.id,
           kind: message.kind,
           read: message.read,
-          sender: message.sender.username,
+          sender: message.sender&.username,
           created_at: message.created_at
         }
       end
