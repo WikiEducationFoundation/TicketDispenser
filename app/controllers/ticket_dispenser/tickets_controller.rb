@@ -6,10 +6,14 @@ module TicketDispenser
       render json: Ticket.all, status: :ok
     end
 
+    def show
+      render json: Ticket.find(ticket_params[:id]), status: :ok
+    end
+
     private
 
     def ticket_params
-      params.permit(:status, :course, :alert, :user)
+      params.permit(:id, :status, :course, :alert, :user)
     end
   end
 end
