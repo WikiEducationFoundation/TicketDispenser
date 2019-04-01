@@ -16,5 +16,14 @@ module TicketDispenser
     validates :status, numericality: true, inclusion: {
       in: Statuses.constants.map { |c| Statuses.const_get c }
     }
+
+    def recipients
+      senders = self.messages.map { |message| message.sender }
+      senders.uniq
+    end
+
+    def other_recipient(user)
+      recipients.reject { |recipient| recipient == user }.first
+    end
   end
 end
