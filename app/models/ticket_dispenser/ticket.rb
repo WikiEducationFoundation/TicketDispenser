@@ -2,8 +2,8 @@
 
 module TicketDispenser
   class Ticket < ApplicationRecord
-    belongs_to :course
-    belongs_to :owner, class_name: :User
+    belongs_to :course, optional: true
+    belongs_to :owner, class_name: :User, optional: true
 
     has_many :messages, dependent: :destroy
 

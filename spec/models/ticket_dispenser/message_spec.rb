@@ -25,7 +25,6 @@ RSpec.describe TicketDispenser::Message, type: :model do
     it { expect(message).to allow_value('').for(:content) }
     it { expect(message).to allow_value('Hello').for(:content) }
 
-    it { expect(message).to belong_to(:sender) }
     it { expect(message).to belong_to(:ticket) }
   end
 end

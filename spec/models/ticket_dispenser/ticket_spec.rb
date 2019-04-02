@@ -19,8 +19,5 @@ RSpec.describe TicketDispenser::Ticket, type: :model do
       higher_val = values.max + 1
       expect(ticket).not_to allow_value(higher_val).for(:status)
     }
-
-    it { expect(ticket).to belong_to(:course) }
-    it { expect(ticket).to belong_to(:owner) }
   end
 end
