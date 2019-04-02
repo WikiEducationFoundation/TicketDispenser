@@ -10,6 +10,10 @@ module TicketDispenser
       render json: Ticket.find(ticket_params[:id]), status: :ok
     end
 
+    def open_tickets
+      render json: { open_tickets: Ticket.exists?(status: Ticket::Statuses::OPEN) }
+    end
+
     private
 
     def ticket_params
