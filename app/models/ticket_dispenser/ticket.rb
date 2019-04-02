@@ -17,6 +17,10 @@ module TicketDispenser
       in: Statuses.constants.map { |c| Statuses.const_get c }
     }
 
+    def reply_to
+      self.messages.first.sender
+    end
+
     def recipients
       senders = self.messages.map { |message| message.sender }
       senders.uniq

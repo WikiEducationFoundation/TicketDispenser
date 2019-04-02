@@ -5,14 +5,7 @@ module TicketDispenser
     attributes :id, :status, :sender, :owner, :course, :messages
 
     def sender
-      return nil if object.messages.empty?
-
-      admin_message = object.messages.find do |message|
-        !message.sender&.admin?
-      end
-
-      return nil if !admin_message
-      admin_message.sender&.username
+      object.messages.first.sender&.username
     end
 
     def owner
