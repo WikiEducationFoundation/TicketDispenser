@@ -10,7 +10,7 @@ module TicketDispenser
     private
     
     def ticket_params
-      params.permit(:content, :kind, :ticket_id, :sender_id, :read, :message)
+      params.permit(:id, :content, :kind, :ticket_id, :sender_id, :read, :message)
     end
   end
 end

@@ -14,10 +14,16 @@ module TicketDispenser
       render json: { open_tickets: Ticket.exists?(status: Ticket::Statuses::OPEN) }
     end
 
+    def read_all_messages
+      ticket = Ticket.find(ticket_params[:ticket_id])
+      Message.where(ticket: ticket).update_all(read: true)
+      render json: { success: true }, status: :ok
+    end
+
     private
 
     def ticket_params
-      params.permit(:id, :status, :course, :alert, :user)
+      params.permit(:id, :status, :course, :alert, :user, :ticket_id)
     end
   end
 end

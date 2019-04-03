@@ -2,7 +2,7 @@
 
 module TicketDispenser
   class TicketSerializer < ActiveModel::Serializer
-    attributes :id, :status, :sender, :owner, :course, :messages
+    attributes :id, :status, :sender, :owner, :course, :read, :messages
 
     def sender
       object.messages.first.sender&.username
@@ -24,6 +24,10 @@ module TicketDispenser
       }
     end
 
+    def read
+      object.messages.all? { |message| message.read }
+    end
+
     def messages
       object.messages.map do |message|
         {
@@ -32,7 +36,8 @@ module TicketDispenser
           kind: message.kind,
           read: message.read,
           sender: message.sender&.username,
-          created_at: message.created_at
+          created_at: message.created_at,
+          updated_at: message.updated_at
         }
       end
     end

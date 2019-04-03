@@ -5,5 +5,6 @@ TicketDispenser::Engine.routes.draw do
 
   resources :tickets
   get 'open_tickets' => 'tickets#open_tickets'
+  put 'read_all_messages' => 'tickets#read_all_messages'
   resources :messages
 end
