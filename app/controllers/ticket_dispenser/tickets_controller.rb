@@ -3,7 +3,8 @@
 module TicketDispenser
   class TicketsController < ApplicationController
     def index
-      render json: Ticket.all, status: :ok
+      tickets = Ticket.where('status != ?', Ticket::Statuses::RESOLVED)
+      render json: tickets, status: :ok
     end
 
     def show
