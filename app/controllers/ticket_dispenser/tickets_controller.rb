@@ -3,7 +3,7 @@
 module TicketDispenser
   class TicketsController < ApplicationController
     def index
-      render json: Ticket.all, status: :ok
+      render json: Ticket.all.includes(:course, :owner, messages: :sender), status: :ok
     end
 
     def show
