@@ -3,11 +3,11 @@
 module TicketDispenser
   class Dispenser
     def self.call(content:, course_id: nil, owner_id:, sender_id: nil)
-      ticket = TicketDispenser::Ticket.new(
+      ticket = Ticket.new(
         course_id: course_id,
         owner_id: owner_id
       )
-      TicketDispenser::Message.create!(
+      Message.create!(
         content: content,
         sender_id: sender_id,
         ticket: ticket
