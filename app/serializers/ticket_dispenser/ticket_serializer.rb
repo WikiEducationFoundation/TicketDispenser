@@ -25,7 +25,7 @@ module TicketDispenser
     end
 
     def read
-      object.messages.all? { |message| message.read }
+      object.messages.all?(&:read)
     end
 
     def messages

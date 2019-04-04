@@ -7,6 +7,9 @@ module TicketDispenser
 
     has_many :messages, dependent: :destroy
 
+    # These statuses are connected to the statuses that are set
+    # in the dashboard's tickets/util.jsx file. If you change them
+    # here, you should change them there.
     module Statuses
       OPEN             = 0
       WAITING_RESPONSE = 1
@@ -18,11 +21,11 @@ module TicketDispenser
     }
 
     def reply_to
-      self.messages.first.sender
+      messages.first.sender
     end
 
     def recipients
-      senders = self.messages.map { |message| message.sender }
+      senders = messages.map(&:sender)
       senders.uniq
     end
 

@@ -8,7 +8,7 @@ module TicketDispenser
     end
 
     private
-    
+
     def ticket_params
       params.permit(:id, :content, :kind, :ticket_id, :sender_id, :read, :message)
     end
