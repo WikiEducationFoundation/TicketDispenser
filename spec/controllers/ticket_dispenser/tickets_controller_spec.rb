@@ -16,7 +16,7 @@ describe TicketDispenser::TicketsController, type: :request do
     end
 
     it 'should return messages embedded in tickets if there are any' do
-      ticket = TicketDispenser::Ticket.create(owner: admin, course: course, status: 0)
+      ticket = TicketDispenser::Ticket.create(owner: admin, project: course, status: 0)
       TicketDispenser::Message.create(ticket: ticket, sender: user, content: 'Hello')
 
       get '/tickets'

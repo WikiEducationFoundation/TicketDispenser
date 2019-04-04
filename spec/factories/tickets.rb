@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :ticket, class: TicketDispenser::Ticket do
-    association :course, factory: :course
+    association :project, factory: :course
     association :owner, factory: :user
   end
 end

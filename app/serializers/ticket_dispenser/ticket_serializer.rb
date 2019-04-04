@@ -2,7 +2,7 @@
 
 module TicketDispenser
   class TicketSerializer < ActiveModel::Serializer
-    attributes :id, :status, :sender, :owner, :course, :read, :messages
+    attributes :id, :status, :sender, :owner, :project, :read, :messages
 
     def sender
       object.messages.first.sender&.username
@@ -16,11 +16,11 @@ module TicketDispenser
       }
     end
 
-    def course
+    def project
       {
-        id: object.course&.id,
-        title: object.course&.title,
-        slug: object.course&.slug
+        id: object.project&.id,
+        title: object.project&.title,
+        slug: object.project&.slug
       }
     end
 

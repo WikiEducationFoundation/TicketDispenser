@@ -3,7 +3,7 @@
 module TicketDispenser
   class TicketsController < ApplicationController
     def index
-      render json: Ticket.all.includes(:course, :owner, messages: :sender), status: :ok
+      render json: Ticket.all.includes(:project, :owner, messages: :sender), status: :ok
     end
 
     def show
@@ -23,7 +23,7 @@ module TicketDispenser
     private
 
     def ticket_params
-      params.permit(:id, :status, :course, :alert, :user, :ticket_id)
+      params.permit(:id, :status, :project, :alert, :user, :ticket_id)
     end
   end
 end

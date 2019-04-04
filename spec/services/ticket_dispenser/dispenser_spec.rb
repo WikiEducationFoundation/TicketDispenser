@@ -10,7 +10,7 @@ RSpec.describe TicketDispenser::Dispenser, type: :service do
   it 'creates a ticket and an associated message' do
     ticket = TicketDispenser::Dispenser.call(
       content: 'This is my first message to you',
-      course_id: course.id,
+      project_id: course.id,
       owner_id: owner.id,
       sender_id: sender.id
     )
@@ -23,7 +23,7 @@ RSpec.describe TicketDispenser::Dispenser, type: :service do
   it 'creates a ticket and an associated message even if there is no sender' do
     ticket = TicketDispenser::Dispenser.call(
       content: 'This is my first message to you',
-      course_id: course.id,
+      project_id: course.id,
       owner_id: owner.id
     )
 

@@ -2,9 +2,9 @@
 
 module TicketDispenser
   class Dispenser
-    def self.call(content:, course_id: nil, owner_id:, sender_id: nil)
+    def self.call(content:, project_id: nil, owner_id:, sender_id: nil)
       ticket = Ticket.new(
-        course_id: course_id,
+        project_id: project_id,
         owner_id: owner_id
       )
       Message.create!(
