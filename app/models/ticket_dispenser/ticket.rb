@@ -11,9 +11,9 @@ module TicketDispenser
     # in the dashboard's tickets/util.jsx file. If you change them
     # here, you should change them there.
     module Statuses
-      OPEN             = 0
-      WAITING_RESPONSE = 1
-      RESOLVED         = 2
+      OPEN = 0
+      AWAITING_RESPONSE = 1
+      RESOLVED = 2
     end
 
     validates :status, numericality: true, inclusion: {
