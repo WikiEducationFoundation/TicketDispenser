@@ -15,7 +15,7 @@ module TicketDispenser
     def update
       ticket = Ticket.find(ticket_params[:id])
       ticket.update!(status: ticket_params[:status])
-      render json: ticket.to_json, status: :ok
+      render json: ticket, status: :ok
     end
 
     def open_tickets
@@ -23,9 +23,9 @@ module TicketDispenser
     end
 
     def read_all_messages
+      Message.where(ticket_id: ticket_params[:ticket_id]).update_all(read: true)
       ticket = Ticket.find(ticket_params[:ticket_id])
-      Message.where(ticket: ticket).update_all(read: true)
-      render json: { success: true }, status: :ok
+      render json: ticket, status: :ok
     end
 
     private
