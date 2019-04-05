@@ -13,9 +13,9 @@ module TicketDispenser
     end
 
     def update
-      message = Message.create(message_params)
-      message.ticket.update!(status: ticket_params[:status])
-      render json: message.to_json, status: :created
+      ticket = Ticket.find(ticket_params[:id])
+      ticket.update!(status: ticket_params[:status])
+      render json: ticket.to_json, status: :ok
     end
 
     def open_tickets
@@ -32,10 +32,6 @@ module TicketDispenser
 
     def ticket_params
       params.permit(:id, :status, :project, :alert, :user, :ticket_id)
-    end
-
-    def message_params
-      params.permit(:content, :kind, :ticket_id, :sender_id, :read, :message)
     end
   end
 end
