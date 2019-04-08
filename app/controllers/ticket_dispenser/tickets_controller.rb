@@ -19,7 +19,10 @@ module TicketDispenser
     end
 
     def open_tickets
-      render json: { open_tickets: Ticket.exists?(status: Ticket::Statuses::OPEN) }
+      conditions = { status: Ticket::Statuses::OPEN }
+      # If query is scoped to a specific owner, check for their tickets AND unowned tickets
+      conditions[:owner_id] = [open_ticket_params[:owner_id], nil] if open_ticket_params[:owner_id]
+      render json: { open_tickets: Ticket.exists?(conditions) }
     end
 
     def read_all_messages
@@ -29,6 +32,10 @@ module TicketDispenser
     end
 
     private
+
+    def open_ticket_params
+      params.permit(:owner_id)
+    end
 
     def ticket_params
       params.permit(:id, :status, :project, :alert, :user, :ticket_id)

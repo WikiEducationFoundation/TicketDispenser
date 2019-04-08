@@ -10,9 +10,9 @@ module TicketDispenser
 
     def owner
       {
-        id: object.owner.id,
-        username: object.owner.username,
-        real_name: object.owner.real_name
+        id: object.owner&.id,
+        username: object.owner&.username,
+        real_name: object.owner&.real_name
       }
     end
 
