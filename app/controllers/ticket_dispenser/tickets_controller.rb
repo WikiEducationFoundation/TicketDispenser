@@ -14,7 +14,7 @@ module TicketDispenser
 
     def update
       ticket = Ticket.find(ticket_params[:id])
-      ticket.update!(status: ticket_params[:status])
+      ticket.update!(ticket_params)
       render json: ticket, status: :ok
     end
 
@@ -38,7 +38,7 @@ module TicketDispenser
     end
 
     def ticket_params
-      params.permit(:id, :status, :project, :alert, :user, :ticket_id)
+      params.permit(:id, :status, :project, :alert, :user, :ticket_id, :owner_id)
     end
   end
 end
