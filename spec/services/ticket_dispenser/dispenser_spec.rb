@@ -7,40 +7,62 @@ RSpec.describe TicketDispenser::Dispenser, type: :service do
   let(:sender) { create(:user) }
   let(:course) { create(:course) }
 
-  it 'creates a ticket and an associated message' do
-    ticket = TicketDispenser::Dispenser.call(
-      content: 'This is my first message to you',
-      project_id: course.id,
-      owner_id: owner.id,
-      sender_id: sender.id
-    )
+  describe '#call' do
+    it 'creates a ticket and an associated message' do
+      ticket = TicketDispenser::Dispenser.call(
+        content: 'This is my first message to you',
+        project_id: course.id,
+        owner_id: owner.id,
+        sender_id: sender.id
+      )
 
-    expect(ticket).to be_a(TicketDispenser::Ticket)
-    expect(ticket.owner).to eq(owner)
-    expect(ticket.messages.length).to eq(1)
+      expect(ticket).to be_a(TicketDispenser::Ticket)
+      expect(ticket.owner).to eq(owner)
+      expect(ticket.messages.length).to eq(1)
+    end
+
+    it 'creates a ticket and an associated message even if there is no sender' do
+      ticket = TicketDispenser::Dispenser.call(
+        content: 'This is my first message to you',
+        project_id: course.id,
+        owner_id: owner.id
+      )
+
+      expect(ticket).to be_a(TicketDispenser::Ticket)
+      expect(ticket.owner).to eq(owner)
+      expect(ticket.messages.length).to eq(1)
+    end
+
+    it 'creates a ticket and an associated message even if there is no course' do
+      ticket = TicketDispenser::Dispenser.call(
+        content: 'This is my first message to you',
+        owner_id: owner.id,
+        sender_id: sender.id
+      )
+
+      expect(ticket).to be_a(TicketDispenser::Ticket)
+      expect(ticket.owner).to eq(owner)
+      expect(ticket.messages.length).to eq(1)
+    end
   end
 
-  it 'creates a ticket and an associated message even if there is no sender' do
-    ticket = TicketDispenser::Dispenser.call(
-      content: 'This is my first message to you',
-      project_id: course.id,
-      owner_id: owner.id
-    )
+  describe '#thread' do
+    it 'adds a new message to the thread based on the reference id' do
+      ticket = TicketDispenser::Dispenser.call(
+        content: 'This is my first message to you',
+        owner_id: owner.id,
+        sender_id: sender.id
+      )
 
-    expect(ticket).to be_a(TicketDispenser::Ticket)
-    expect(ticket.owner).to eq(owner)
-    expect(ticket.messages.length).to eq(1)
-  end
+      TicketDispenser::Dispenser.thread(
+        content: 'This is my second message to you',
+        owner_id: owner.id,
+        reference_id: ticket.reference_id,
+        sender_id: sender.id
+      )
 
-  it 'creates a ticket and an associated message even if there is no course' do
-    ticket = TicketDispenser::Dispenser.call(
-      content: 'This is my first message to you',
-      owner_id: owner.id,
-      sender_id: sender.id
-    )
-
-    expect(ticket).to be_a(TicketDispenser::Ticket)
-    expect(ticket.owner).to eq(owner)
-    expect(ticket.messages.length).to eq(1)
+      expect(ticket.status).to eq(TicketDispenser::Ticket::Statuses::OPEN)
+      expect(ticket.messages.length).to eq(2)
+    end
   end
 end
