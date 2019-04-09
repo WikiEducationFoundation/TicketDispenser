@@ -20,6 +20,10 @@ module TicketDispenser
       in: Statuses.constants.map { |c| Statuses.const_get c }
     }
 
+    def reference_id
+      id.to_s.rjust(6, '0')
+    end
+
     def reply_to
       messages.first.sender
     end
@@ -31,6 +35,11 @@ module TicketDispenser
 
     def other_recipient(user)
       recipients.reject { |recipient| recipient == user }.first
+    end
+
+    def in_recipient_list?(id)
+      ids = messages.map(&:sender_id).uniq
+      ids.include?(id)
     end
   end
 end
