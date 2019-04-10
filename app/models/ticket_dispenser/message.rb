@@ -5,6 +5,8 @@ module TicketDispenser
     belongs_to :sender, class_name: :User, optional: true
     belongs_to :ticket
 
+    serialize :details, Hash
+
     module Kinds
       REPLY = 0
       NOTE  = 1
