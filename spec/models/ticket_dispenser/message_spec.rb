@@ -27,4 +27,11 @@ RSpec.describe TicketDispenser::Message, type: :model do
 
     it { expect(message).to belong_to(:ticket) }
   end
+
+  describe '.details' do
+    let(:message) { create(:message) }
+    it 'should return an empty hash if not set' do
+      expect(message.details).to eq({})
+    end
+  end
 end
