@@ -36,6 +36,7 @@ module TicketDispenser
           kind: message.kind,
           read: message.read,
           sender: message.sender&.username,
+          details: message.details,
           created_at: message.created_at,
           updated_at: message.updated_at
         }
