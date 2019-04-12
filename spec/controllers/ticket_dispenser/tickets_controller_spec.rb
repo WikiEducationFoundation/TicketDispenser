@@ -32,4 +32,21 @@ describe TicketDispenser::TicketsController, type: :request do
       expect(message['read']).to equal(false)
     end
   end
+
+  describe '#destroy' do
+    let(:ticket) { create(:ticket) }
+    let!(:message) { create(:message, ticket: ticket) }
+
+    it 'should delete the specified ticket (and all messages)' do
+      expect(TicketDispenser::Ticket.count).to eq(1)
+      expect(TicketDispenser::Message.count).to eq(1)
+
+      delete "/tickets/#{ticket.id}"
+      ticket_response = JSON.parse(response.body).with_indifferent_access
+      
+      expect(ticket_response[:id]).to eq(ticket.id)
+      expect(TicketDispenser::Ticket.count).to eq(0)
+      expect(TicketDispenser::Message.count).to eq(0)
+    end
+  end
 end

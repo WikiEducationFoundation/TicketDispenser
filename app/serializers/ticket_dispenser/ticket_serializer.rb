@@ -5,6 +5,7 @@ module TicketDispenser
     attributes :id, :status, :sender, :owner, :project, :read, :messages
 
     def sender
+      return if object.messages.empty?
       object.messages.first.sender&.username
     end
 
