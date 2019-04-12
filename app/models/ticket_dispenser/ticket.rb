@@ -28,15 +28,6 @@ module TicketDispenser
       messages.first.sender
     end
 
-    def recipients
-      senders = messages.map(&:sender)
-      senders.uniq
-    end
-
-    def other_recipient(user)
-      recipients.reject { |recipient| recipient == user }.first
-    end
-
     def in_recipient_list?(id)
       ids = messages.map(&:sender_id).uniq
       ids.include?(id)

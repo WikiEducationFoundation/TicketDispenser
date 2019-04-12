@@ -50,6 +50,7 @@ RSpec.describe TicketDispenser::Dispenser, type: :service do
     it 'adds a new message to the thread based on the reference id' do
       ticket = TicketDispenser::Dispenser.call(
         content: 'This is my first message to you',
+        owner_id: owner.id,
         sender_id: sender.id
       )
 
