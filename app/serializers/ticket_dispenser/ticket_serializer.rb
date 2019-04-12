@@ -6,7 +6,7 @@ module TicketDispenser
 
     def sender
       return if object.messages.empty?
-      object.messages.first.sender&.username
+      object.messages.first.sender
     end
 
     def owner
@@ -36,7 +36,7 @@ module TicketDispenser
           id: message.id,
           kind: message.kind,
           read: message.read,
-          sender: message.sender&.username,
+          sender: message.sender,
           details: message.details,
           created_at: message.created_at,
           updated_at: message.updated_at
