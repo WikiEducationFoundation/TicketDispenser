@@ -18,6 +18,12 @@ module TicketDispenser
       render json: ticket, status: :ok
     end
 
+    def destroy
+      ticket = Ticket.find(ticket_params[:id])
+      ticket.destroy
+      render json: ticket, status: :ok
+    end
+
     def open_tickets
       conditions = { status: Ticket::Statuses::OPEN }
       # If query is scoped to a specific owner, check for their tickets AND unowned tickets
