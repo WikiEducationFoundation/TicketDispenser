@@ -28,7 +28,7 @@ describe TicketDispenser::TicketsController, type: :request do
       expect(messages.length).to equal(1)
 
       message = messages.first
-      expect(message['sender']).to eq('MyUsername')
+      expect(message['sender']['username']).to eq(user.username)
       expect(message['read']).to equal(false)
     end
   end
@@ -43,7 +43,7 @@ describe TicketDispenser::TicketsController, type: :request do
 
       delete "/tickets/#{ticket.id}"
       ticket_response = JSON.parse(response.body).with_indifferent_access
-      
+
       expect(ticket_response[:id]).to eq(ticket.id)
       expect(TicketDispenser::Ticket.count).to eq(0)
       expect(TicketDispenser::Message.count).to eq(0)
