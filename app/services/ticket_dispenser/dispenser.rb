@@ -2,7 +2,7 @@
 
 module TicketDispenser
   class Dispenser
-    def self.call(content:, project_id: nil, owner_id:, sender_id: nil, subject: nil, sender_email: nil, details: {})
+    def self.call(content:, project_id: nil, owner_id:, sender_id: nil, details: {})
       ticket = Ticket.new(
         project_id: project_id,
         owner_id: owner_id
@@ -11,13 +11,13 @@ module TicketDispenser
         content: content,
         sender_id: sender_id,
         ticket: ticket,
-        details: { subject: subject, sender_email: sender_email, **details}
+        details: details
       )
 
       return ticket
     end
 
-    def self.thread(content:, reference_id:, sender_id:, subject: nil, sender_email: nil, details: {})
+    def self.thread(content:, reference_id:, sender_id:, details: {})
       ticket = Ticket.where(id: reference_id.to_i).first
       raise unless ticket
       raise unless ticket.in_recipient_list?(sender_id)
@@ -27,7 +27,7 @@ module TicketDispenser
         content: content,
         sender_id: sender_id,
         ticket: ticket,
-        details: { subject: subject, sender_email: sender_email, **details }
+        details: details
       )
     end
   end
