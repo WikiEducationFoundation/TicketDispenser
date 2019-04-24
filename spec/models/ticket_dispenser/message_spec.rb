@@ -1,5 +1,20 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: ticket_dispenser_messages
+#
+#  id         :bigint(8)        not null, primary key
+#  kind       :integer          default(0)
+#  sender_id  :integer
+#  ticket_id  :bigint(8)
+#  read       :boolean          default(FALSE), not null
+#  content    :text(65535)      not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+
 require 'rails_helper'
 
 RSpec.describe TicketDispenser::Message, type: :model do

@@ -1,5 +1,18 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: ticket_dispenser_tickets
+#
+#  id         :bigint(8)        not null, primary key
+#  project_id :bigint(8)
+#  owner_id   :integer
+#  status     :integer          default(0)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+
 module TicketDispenser
   class TicketSerializer < ActiveModel::Serializer
     attributes :id, :status, :sender, :owner, :project, :read, :messages, :subject, :sender_email
