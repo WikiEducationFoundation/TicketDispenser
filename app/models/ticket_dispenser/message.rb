@@ -32,5 +32,9 @@ module TicketDispenser
     }
     validates :read, inclusion: { in: [true, false], message: "can't be blank" }
     validates :content, length: { minimum: 0, allow_nil: false }
+
+    def reply?
+      kind == Kinds::REPLY
+    end
   end
 end

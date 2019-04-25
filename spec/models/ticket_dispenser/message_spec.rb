@@ -49,4 +49,15 @@ RSpec.describe TicketDispenser::Message, type: :model do
       expect(message.details).to eq({})
     end
   end
+
+  describe '#reply?' do
+    it 'should return true if the message is a reply' do
+      message = create(:message, kind: TicketDispenser::Message::Kinds::REPLY)
+      expect(message.reply?).to be true
+    end
+    it 'should return false if the message is not a reply' do
+      message = create(:message, kind: TicketDispenser::Message::Kinds::NOTE)
+      expect(message.reply?).to be false
+    end
+  end
 end
