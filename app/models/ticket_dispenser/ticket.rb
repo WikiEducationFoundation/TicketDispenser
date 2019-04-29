@@ -12,7 +12,6 @@
 #  updated_at :datetime         not null
 #
 
-
 module TicketDispenser
   class Ticket < ApplicationRecord
     belongs_to :project, class_name: 'Course', optional: true
@@ -44,6 +43,11 @@ module TicketDispenser
     def in_recipient_list?(id)
       ids = messages.map(&:sender_id).uniq
       ids.include?(id)
+    end
+
+    # override this in the main app if you need to define a custom `sender`
+    def sender
+      nil
     end
   end
 end

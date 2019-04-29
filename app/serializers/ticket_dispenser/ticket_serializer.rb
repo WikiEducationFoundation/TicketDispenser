@@ -12,14 +12,14 @@
 #  updated_at :datetime         not null
 #
 
-
 module TicketDispenser
   class TicketSerializer < ActiveModel::Serializer
     attributes :id, :status, :sender, :owner, :project, :read, :messages, :subject, :sender_email
 
     def sender
-      return if object.messages.empty?
-      object.messages.first.sender || {}
+      # override Ticket#sender in an initializer if you need
+      # anything beyond default serialization of a User object
+      object.sender || object.messages.first&.sender || {}
     end
 
     def owner
