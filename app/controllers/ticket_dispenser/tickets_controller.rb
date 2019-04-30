@@ -3,7 +3,14 @@
 module TicketDispenser
   class TicketsController < ApplicationController
     def index
-      render json: Ticket.all.includes(:project, :owner, messages: :sender), status: :ok
+      query = Ticket.all.includes(:project, :owner, messages: :sender).order(:id)
+
+      created_after_date = ticket_params[:created_after] || 90.days.ago
+      created_before_date = ticket_params[:created_before] || 1.day.from_now
+      query = query.where('created_at <= DATE(?) AND created_at > DATE(?)',
+                          created_before_date, created_after_date)
+
+      render json: query, status: :ok
     end
 
     def show
@@ -44,7 +51,8 @@ module TicketDispenser
     end
 
     def ticket_params
-      params.permit(:id, :status, :project, :alert, :user, :ticket_id, :owner_id)
+      params.permit(:id, :status, :project, :alert, :user, :ticket_id, :owner_id,
+                    :created_after, :created_before, :limit, :offset)
     end
   end
 end
