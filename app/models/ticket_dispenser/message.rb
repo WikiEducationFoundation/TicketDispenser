@@ -36,5 +36,10 @@ module TicketDispenser
     def reply?
       kind == Kinds::REPLY
     end
+
+    # override this in the main app if you need to define a custom `sender`
+    def serialized_sender
+      sender
+    end
   end
 end
