@@ -5,10 +5,9 @@ module TicketDispenser
     def index
       query = Ticket.all.includes(:project, :owner, messages: :sender).order(:id)
 
-      created_after_date = ticket_params[:created_after] || 90.days.ago
-      created_before_date = ticket_params[:created_before] || 1.day.from_now
-      query = query.where('created_at <= DATE(?) AND created_at > DATE(?)',
-                          created_before_date, created_after_date)
+      offset = ticket_params[:offset] || 0
+      limit = ticket_params[:limit] || 100
+      query = query.offset(offset).limit(limit)
 
       render json: query, status: :ok
     end
@@ -52,7 +51,7 @@ module TicketDispenser
 
     def ticket_params
       params.permit(:id, :status, :project, :alert, :user, :ticket_id, :owner_id,
-                    :created_after, :created_before, :limit, :offset)
+                    :limit, :offset)
     end
   end
 end

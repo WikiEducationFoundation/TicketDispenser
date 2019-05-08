@@ -31,15 +31,6 @@ describe TicketDispenser::TicketsController, type: :request do
       expect(message['sender']['username']).to eq(user.username)
       expect(message['read']).to equal(false)
     end
-
-    it 'should not include tickets created more than 90 days ago by default' do
-      ticket = TicketDispenser::Ticket.create(owner: admin, project: course, status: 0, created_at: 120.days.ago)
-      TicketDispenser::Message.create(ticket: ticket, sender: user, content: 'Hello')
-
-      get '/tickets'
-      tickets = JSON.parse(response.body)
-      expect(tickets.length).to equal(0)
-    end
   end
 
   describe '#destroy' do
