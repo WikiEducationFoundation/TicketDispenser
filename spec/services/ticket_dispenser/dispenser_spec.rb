@@ -47,7 +47,7 @@ RSpec.describe TicketDispenser::Dispenser, type: :service do
 
     it 'creates a ticket and an associated message with additional details' do
       details = {
-        cc: [ 'other@email.com' ],
+        cc: ['other@email.com'],
         sender_email: 'sender@email.com',
         subject: 'My Subject'
       }
@@ -64,7 +64,7 @@ RSpec.describe TicketDispenser::Dispenser, type: :service do
       expect(ticket.messages.length).to eq(1)
       expect(ticket.messages.first.details[:sender_email]).to eq('sender@email.com')
       expect(ticket.messages.first.details[:subject]).to eq('My Subject')
-      expect(ticket.messages.first.details[:cc]).to eq([ 'other@email.com' ])
+      expect(ticket.messages.first.details[:cc]).to eq(['other@email.com'])
     end
   end
 

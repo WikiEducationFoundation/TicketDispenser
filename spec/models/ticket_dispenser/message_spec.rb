@@ -14,7 +14,6 @@
 #  updated_at :datetime         not null
 #
 
-
 require 'rails_helper'
 
 RSpec.describe TicketDispenser::Message, type: :model do
@@ -45,6 +44,7 @@ RSpec.describe TicketDispenser::Message, type: :model do
 
   describe '.details' do
     let(:message) { create(:message) }
+
     it 'should return an empty hash if not set' do
       expect(message.details).to eq({})
     end

@@ -14,7 +14,6 @@
 #  updated_at :datetime         not null
 #
 
-
 module TicketDispenser
   class Message < ApplicationRecord
     belongs_to :sender, class_name: :User, optional: true
