@@ -34,6 +34,11 @@ module TicketDispenser
       in: Statuses.constants.map { |c| Statuses.const_get c }
     }
 
+    def subject
+      return if messages.empty?
+      messages.first.details[:subject]
+    end
+
     def reference_id
       id.to_s.rjust(6, '0')
     end

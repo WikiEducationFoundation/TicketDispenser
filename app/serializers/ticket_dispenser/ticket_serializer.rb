@@ -42,11 +42,6 @@ module TicketDispenser
       object.messages.all?(&:read)
     end
 
-    def subject
-      return if object.messages.empty?
-      object.messages.first.details[:subject]
-    end
-
     def sender_email
       return if object.messages.empty?
       object.messages.first.details[:sender_email]
