@@ -38,15 +38,6 @@ module TicketDispenser
       }
     end
 
-    def read
-      object.messages.all?(&:read)
-    end
-
-    def sender_email
-      return if object.messages.empty?
-      object.messages.first.details[:sender_email]
-    end
-
     def messages
       object.messages.map do |message|
         {

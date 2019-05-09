@@ -39,6 +39,15 @@ module TicketDispenser
       messages.first.details[:subject]
     end
 
+    def read
+      messages.all?(&:read)
+    end
+
+    def sender_email
+      return if messages.empty?
+      messages.first.details[:sender_email]
+    end
+
     def reference_id
       id.to_s.rjust(6, '0')
     end
