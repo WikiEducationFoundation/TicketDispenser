@@ -3,7 +3,7 @@
 module TicketDispenser
   class TicketsController < ApplicationController
     def index
-      query = Ticket.all.includes(:project, :owner, messages: :sender).order(:id)
+      query = Ticket.all.includes(:project, :owner, messages: :sender).order(id: :desc)
 
       offset = ticket_params[:offset] || 0
       limit = ticket_params[:limit] || 100
