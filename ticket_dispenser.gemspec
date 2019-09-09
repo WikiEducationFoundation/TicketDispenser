@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'active_model_serializers'
   spec.add_dependency 'mysql2'
-  spec.add_dependency 'rails', '~> 5.2.2', '>= 5.2.2.1'
+  spec.add_dependency 'rails'
 
   spec.add_development_dependency 'factory_bot_rails'
   spec.add_development_dependency 'faker'
