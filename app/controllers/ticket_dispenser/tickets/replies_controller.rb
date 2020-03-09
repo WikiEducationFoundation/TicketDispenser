@@ -12,6 +12,12 @@ module TicketDispenser
       render json: message.to_json, status: :created
     end
 
+    def destroy
+      message = Message.find(message_params[:id])
+      message.destroy
+      render json: message, status: :ok
+    end
+
     private
 
     def ticket_params
@@ -19,7 +25,7 @@ module TicketDispenser
     end
 
     def message_params
-      params.permit(:content, :kind, :ticket_id, :sender_id, :read, :message,
+      params.permit(:id, :content, :kind, :ticket_id, :sender_id, :read, :message,
                     details: [cc: [:email]])
     end
   end
