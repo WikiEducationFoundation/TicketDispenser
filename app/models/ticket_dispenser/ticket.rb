@@ -19,7 +19,7 @@ module TicketDispenser
 
     has_many :messages, dependent: :destroy
 
-    scope :open, -> { where(status: Statuses::OPEN) }
+    scope :open_tickets, -> { where(status: Statuses::OPEN) }
 
     # These statuses are connected to the statuses that are set
     # in the dashboard's tickets/util.jsx file. If you change them

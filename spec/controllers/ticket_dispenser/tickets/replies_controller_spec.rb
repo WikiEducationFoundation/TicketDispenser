@@ -11,6 +11,6 @@ describe TicketDispenser::Tickets::RepliesController, type: :request do
       message_response = JSON.parse(response.body).with_indifferent_access
       expect(message_response[:id]).to eq(message.id)
       expect(TicketDispenser::Message.count).to eq(0)
-     end      
+     end
   end
-end      
+end
