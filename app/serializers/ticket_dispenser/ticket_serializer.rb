@@ -14,7 +14,7 @@
 
 module TicketDispenser
   class TicketSerializer < ActiveModel::Serializer
-    attributes :id, :status, :sender, :owner, :project, :read, :messages, :subject, :sender_email
+    attributes :id, :status, :sender, :owner, :project, :read, :messages, :subject, :sender_email, :created_at, :updated_at
 
     def sender
       # override Ticket#sender in an initializer if you need
