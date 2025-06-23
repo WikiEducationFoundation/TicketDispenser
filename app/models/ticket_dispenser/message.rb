@@ -19,7 +19,7 @@ module TicketDispenser
     belongs_to :sender, class_name: :User, optional: true
     belongs_to :ticket
 
-    serialize :details, Hash
+    serialize :details, coder: YAML, type: Hash
 
     module Kinds
       REPLY = 0
