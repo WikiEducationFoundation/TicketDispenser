@@ -6,7 +6,11 @@ module TicketDispenser
       message = Message.create(message_params.except(:details))
       message.ticket.update!(status: ticket_params[:status])
 
-      details = message_params['details'].to_h.deep_transform_keys(&:to_sym)
+      # `to_h` on ActionController::Parameters yields a HashWithIndifferentAccess,
+      # which the YAML-serialized `details` column cannot dump under safe_dump.
+      # `deep_symbolize_keys` converts it to a plain, symbol-keyed Hash, matching
+      # how `details` is written everywhere else.
+      details = message_params['details'].to_h.deep_symbolize_keys
       message.update(details: details)
 
       render json: message.to_json, status: :created
